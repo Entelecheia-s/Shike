@@ -1,0 +1,73 @@
+server:
+  port: 8081
+  tomcat:
+    max-swallow-size: -1
+  error:
+    include-exception: true
+    include-stacktrace: ALWAYS
+    include-message: ALWAYS
+  servlet:
+    context-path: /shike
+
+spring:
+  #（1）出参格式化：相当于设置了全局的@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  jackson:
+    # 格式化全局时间字段
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 指定时间区域类型
+    time-zone: GMT+8
+  # (2)入参格式化:相当于设置了全局的@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  mvc:
+    format:
+      # 默认的格式是dd/MM/yyyy，除此外任何格式都会400异常
+      date: yyyy-MM-dd HH:mm:ss
+  #数据源 配置
+  datasource:
+    url: jdbc:mysql://rm-bp1vz826n7lp8742jto.mysql.rds.aliyuncs.com:3306/shike?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    username: shike
+    password: Shike2025
+
+    #    url: jdbc:mysql://localhost:3306/shike?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    #    username: root
+    #    password: Ss645893!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+  #  #redis 配置
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: ''
+#mybatis plus 设置
+mybatis-plus:
+  mapper-locations: classpath*:com/example/**/xml/*Mapper.xml
+  global-config:
+    # 关闭MP3.0自带的banner
+    banner: false
+    db-config:
+      #主键类型  0:"数据库ID自增",1:"该类型为未设置主键类型", 2:"用户输入ID",3:"全局唯一ID (数字类型唯一ID)", 4:"全局唯一ID UUID",5:"字符串全局唯一ID (idWorker 的字符串表示)";
+      id-type: AUTO
+      # 默认数据库表下划线命名
+      table-underline: true
+  configuration:
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 返回类型为Map,显示null对应的字段
+    call-setters-on-nulls: true
+#swagger
+knife4j:
+  #开启增强配置
+  enable: true
+  openapi:
+    title: 拾刻Shike后台API文档
+    description: "拾刻Shike后台API文档"
+    email: 13191529688@163.com
+    concat: 宋硕
+    version: v2.0
+    group:
+      test1:
+        group-name: 第三阶段练习
+        api-rule: package
+        api-rule-resources:
+          - com.example.shike
